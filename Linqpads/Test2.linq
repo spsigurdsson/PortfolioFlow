@@ -10,18 +10,20 @@ void Main()
 	var from = 2018;
 	var to = 2060;
 	
+	var salary = new YearMoneySequence()
+		.Fill(from,to,500000.AsMoney());
+		
+	var percent = new ContributionAsPercent(new YearPercentSequence()
+		.Fill(from,to,new Percent(0.1m)));
+		
+	var contribution = percent.CalculateContribution(salary);
 	
-	var salary = new SequenceYears<Money>()
-		.Fill(from,to,new Money(500000));
-		
-	var prcContribution = new ContributionAsPercent(new SequenceYears<Percent>()
-		.Fill(2018,2055, new Percent(0m))
-		.Fill(2018,2035, new Percent(0.08m))
-		.Fill(2036,2055, new Percent(0.10m)));
-		
-	var contribution = prcContribution.CalculateContribution(salary);
-
+	
 	contribution.ToString().Dump();
+	
+	
+
+
 
 
 	//salary[2018] = 1000000.AsMoney();

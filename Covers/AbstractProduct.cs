@@ -5,15 +5,15 @@ namespace PortfolioFlow.Covers
 {
     public abstract class AbstractProduct : IProduct {
 
-        public AbstractProduct (int id, SequenceYears<Money> max) {
+        public AbstractProduct (int id, IYearSequence<Money> max) {
             Id = id;
             Max = max;
-            Takes = max.NewWithOneValueForAllYears(new Money(0m));
+            Takes = max.Copy();
         }
 
         public int Id { get; }
-        public SequenceYears<Money> Max { get; }
-        public SequenceYears<Money> Takes { get; }
+        public IYearSequence<Money> Max { get; }
+        public IYearSequence<Money> Takes { get; }
     }
 
     // Contribution fixed amount

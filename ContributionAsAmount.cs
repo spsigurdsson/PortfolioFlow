@@ -4,15 +4,15 @@ namespace PortfolioFlow
 {
     public class ContributionAsAmount: IContribution
     {
-        private readonly ISequenceYears<Money> _contribution;
+        private readonly IYearSequence<Money> _contribution;
 
         // TODO: Input should be TimeSeries.
-        public ContributionAsAmount(ISequenceYears<Money> contirbution)
+        public ContributionAsAmount(IYearSequence<Money> contirbution)
         {
             _contribution = contirbution;
         }
 
-        public ISequenceYears<Money> CalculateContribution(ISequenceYears<Money> salaryPrYear)
+        public IYearSequence<Money> CalculateContribution(IYearSequence<Money> salaryPrYear)
         {
             return _contribution;
         }

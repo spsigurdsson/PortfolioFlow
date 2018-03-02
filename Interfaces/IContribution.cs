@@ -2,6 +2,6 @@
 {
     public interface IContribution
     {
-        ISequenceYears<Money> CalculateContribution(ISequenceYears<Money> salaryPrYear);
+        IYearSequence<Money> CalculateContribution(IYearSequence<Money> salaryPrYear);
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using PortfolioFlow.Interfaces;
+using PortfolioFlow.YearSequence;
 
 namespace PortfolioFlow
 {
@@ -12,9 +13,9 @@ namespace PortfolioFlow
     public class Limits {
 
         /// The income or total contribution to distribute.
-        private readonly SequenceYears<Money> _income;
+        private readonly YearMoneySequence _income;
         /// The limits for each taxcode, left.
-        private readonly IDictionary<TaxType, SequenceYears<Money>> _limitByTaxCode;
+        private readonly IDictionary<TaxType, YearMoneySequence> _limitByTaxCode;
         /// A list of actions in covers and how much contribution.
         private readonly IList<BuyAction> Actions = new List<BuyAction> ();
         /// The covers come in here to buy.

@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using PortfolioFlow.Interfaces;
 
-namespace PortfolioFlow
+namespace PortfolioFlow.YearSequence
 {
-
-    public class SequenceYears<T> : ISequenceYears<T>
+    public class YearSequence<T> : IYearSequence<T>
     {
-        private readonly IDictionary<int, T> _dictionary;
+        protected readonly IDictionary<int, T> _dictionary;
 
-        public SequenceYears(){
+        public YearSequence(){
             _dictionary = new Dictionary<int,T>();
         }
 
-        private SequenceYears(IDictionary<int, T> dictionary){
+        private YearSequence(IDictionary<int, T> dictionary){
             _dictionary = new Dictionary<int,T>(dictionary); // Clone.
         }
 
@@ -47,9 +46,9 @@ namespace PortfolioFlow
 
         public IEnumerable<int> AllYears => _dictionary.Keys;
 
-        public ISequenceYears<T> Copy()
+        public IYearSequence<T> Copy()
         {
-            return new SequenceYears<T>(_dictionary);
+            return new YearSequence<T>(_dictionary);
         }
 
         public override string ToString()

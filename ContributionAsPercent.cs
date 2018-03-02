@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using PortfolioFlow.Interfaces;
+using PortfolioFlow.YearSequence;
 
 namespace PortfolioFlow
 {
@@ -8,18 +9,18 @@ namespace PortfolioFlow
     {
 
         // TODO: Input should be TimeSeries.
-        public ContributionAsPercent(ISequenceYears<Percent> percentOfSalary)
+        public ContributionAsPercent(IYearSequence<Percent> percentOfSalary)
         {
             PercentOfSalary = percentOfSalary;
         }
 
-        public ISequenceYears<Percent> PercentOfSalary { get; }
+        public IYearSequence<Percent> PercentOfSalary { get; }
 
-        public ISequenceYears<Money> CalculateContribution(ISequenceYears<Money> salaryPrYear)
+        public IYearSequence<Money> CalculateContribution(IYearSequence<Money> salaryPrYear)
         {
             var min = Math.Min(salaryPrYear.Min,PercentOfSalary.Min);
             var max = Math.Max(salaryPrYear.Max,PercentOfSalary.Max);
-            var r = new SequenceYears<Money>();
+            var r = new YearSequence<Money>();
             var zero = new Percent(0m);
             foreach(var y in Enumerable.Range(min, max - min + 1))
             {

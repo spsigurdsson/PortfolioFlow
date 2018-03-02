@@ -2,14 +2,14 @@ using System;
 using System.Linq;
 using PortfolioFlow.Interfaces;
 
-namespace PortfolioFlow
+namespace PortfolioFlow.YearSequence
 {
     public static class YearsExtensions
     {
 
-        public static SequenceYears<T> NewWithOneValueForAllYears<T>(this SequenceYears<T> replicateFrom, T value){
+        public static YearSequence<T> NewWithOneValueForAllYears<T>(this YearSequence<T> replicateFrom, T value){
             
-            var newOne = new SequenceYears<T>();
+            var newOne = new YearSequence<T>();
 
             foreach(var y in replicateFrom.AllYears)
             {
@@ -19,7 +19,7 @@ namespace PortfolioFlow
             return newOne;
         }
 
-        public static ISequenceYears<T> Fill<T>(this ISequenceYears<T> years,int from, int to, T value)
+        public static IYearSequence<T> Fill<T>(this IYearSequence<T> years,int from, int to, T value)
         {
             var newYears = years.Copy();
             foreach(var y in Enumerable.Range(from, to - from + 1))
@@ -29,7 +29,7 @@ namespace PortfolioFlow
             return newYears;
         }
 
-        public static ISequenceYears<T> Fill<T>(this ISequenceYears<T> years,int from, int to, Func<T,T> fun)
+        public static IYearSequence<T> Fill<T>(this IYearSequence<T> years,int from, int to, Func<T,T> fun)
         {
             var newYears = years.Copy();
             foreach(var y in Enumerable.Range(from, to - from + 1))
