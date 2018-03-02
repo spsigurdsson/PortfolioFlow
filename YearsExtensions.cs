@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using PortfolioFlow.Interfaces;
 
 namespace PortfolioFlow
 {
@@ -18,7 +19,7 @@ namespace PortfolioFlow
             return newOne;
         }
 
-        public static SequenceYears<T> Fill<T>(this SequenceYears<T> years,int from, int to, T value)
+        public static ISequenceYears<T> Fill<T>(this ISequenceYears<T> years,int from, int to, T value)
         {
             var newYears = years.Copy();
             foreach(var y in Enumerable.Range(from, to - from + 1))
@@ -28,7 +29,7 @@ namespace PortfolioFlow
             return newYears;
         }
 
-        public static SequenceYears<T> Fill<T>(this SequenceYears<T> years,int from, int to, Func<T,T> fun)
+        public static ISequenceYears<T> Fill<T>(this ISequenceYears<T> years,int from, int to, Func<T,T> fun)
         {
             var newYears = years.Copy();
             foreach(var y in Enumerable.Range(from, to - from + 1))

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using PortfolioFlow.Interfaces;
@@ -6,15 +6,17 @@ using PortfolioFlow.Interfaces;
 namespace PortfolioFlow
 {
 
-    public class SequenceYears<T> : ISequenceYears<T>
+    public class SequenceYearsStrict<T> : ISequenceYears<T>
     {
         private readonly IDictionary<int, T> _dictionary;
 
-        public SequenceYears(){
+        public SequenceYearsStrict(int from, int to, T value){
+
             _dictionary = new Dictionary<int,T>();
+            Add(from,to,value);
         }
 
-        private SequenceYears(IDictionary<int, T> dictionary){
+        private SequenceYearsStrict(IDictionary<int, T> dictionary){
             _dictionary = new Dictionary<int,T>(dictionary); // Clone.
         }
 
@@ -22,6 +24,13 @@ namespace PortfolioFlow
 
         public int Min {get; private set;} = int.MaxValue;
 
+        private void Add(int from, int to, T value)
+        {
+            foreach(var y in Enumerable.Range(from,to-from + 1))
+            {
+               _dictionary.Add(y,value);
+            }
+        }
 
         public T this[int year]{
             get
@@ -38,7 +47,15 @@ namespace PortfolioFlow
                 }
                 else
                 {
-                    _dictionary.Add(year,value);
+                    if(year > Max)
+                    {
+                        Add(Max+1,year,value);
+                    }else if(year < Min){
+                        Add(year,Min-1,value);
+                    }else{
+                        _dictionary.Add(year,value);
+                    }
+                    
                     Max = Math.Max(year,Max);
                     Min = Math.Min(year,Min);
                 }
@@ -49,7 +66,7 @@ namespace PortfolioFlow
 
         public ISequenceYears<T> Copy()
         {
-            return new SequenceYears<T>(_dictionary);
+            return new SequenceYearsStrict<T>(_dictionary);
         }
 
         public override string ToString()
